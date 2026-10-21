@@ -1,0 +1,130 @@
+# English content — page https://vuducnam.dev/en/
+# Edit this file, commit to main, Cloudflare Pages rebuilds automatically.
+
+lang: en
+locale: en_US
+path: /en/
+
+meta:
+  title: Vũ Đức Nam — CTO & Head of Projects, Redsun Ecosys
+  description: Software engineer for 10 years, CTO at Redsun Ecosys. Building ERP, POS and AI tools for Vietnamese businesses.
+  job_title: CTO & Head of Projects
+
+nav:
+  about: Who I am
+  capabilities: What I do
+  thinking: How I think
+  contact: Contact
+  menu: Open menu
+  language: Language
+  skip: Skip to content
+
+hero:
+  answer: human — not a bot
+  name: Vũ Đức Nam
+  role_prefix: CTO & Head of Projects at
+  company: Redsun Ecosys
+  lead: I'm Nam — a software engineer of 10 years, building ERP, POS and AI tools for Vietnamese businesses. I use AI every day. Decisions, accountability and the promises we make to customers still belong to people.
+  signature: — Nam
+  cta_primary: Message me
+  cta_secondary: What I do
+  location: Thủ Đức, Ho Chi Minh City · UTC+7
+
+fire:
+  label: 火 · FIRE ELEMENT
+  status: "status: burning"
+  fuel_label: fuel
+  fuel: [ERP, POS, AI agents, Kafka, CRM, DAG engine, the team]
+  stats:
+    - value: 2 roles
+      label: CTO and head of projects, at the same time
+    - value: 3 products
+      label: BOS, SIPOS and Webino, side by side
+    - value: 63 use cases
+      label: AI-first, 10 domains, in a single spec
+  quote_strong: Fire never asks when it gets to rest.
+  quote_rest: It only asks what is left to burn.
+
+about:
+  label: 01 — Who I am
+  title: A craftsman at heart.
+  body: At Redsun, I design architecture, plan products, and still sit down with developers to untangle problems one by one.
+  side_title: Outside work
+  side:
+    - A dad who codes for his kid — a Grade 5 math practice app and a Socratic AI tutor that asks questions instead of handing out answers.
+    - Small tools for real jobs, like a lookup app for administrative documents — accurate down to the last word.
+  profile_comment: "# a human, not a bot"
+  profile_edit: Edit on GitHub
+  profile:
+    element: fire
+    stack:
+      - NestJS, Go, Rust
+      - PostgreSQL, Redis
+      - Kafka, BullMQ
+      - Mobile apps
+      - Claude API, Claude Code, Antigravity
+    focus:
+      - AI agents for ERP
+      - Event-driven architecture
+      - Enterprise-grade products
+
+capabilities:
+  label: 02 — What I do
+  title: From architecture diagrams to products that run.
+  items:
+    - slug: /architecture
+      title: Large-scale system architecture
+      body: Microservices, event-driven, database-per-service — for a multi-industry, multi-brand ERP platform.
+      tech: NestJS · Go · Rust · Mobile · PostgreSQL · Kafka · BullMQ · Redis
+    - slug: /ai
+      title: AI in real products
+      body: An AI Gateway that calls business operations through function calling, agents that replace ERP screens, AI summaries and next-step suggestions in CRM.
+      tech: Claude API · MCP · pgvector
+    - slug: /automation
+      title: Automation & omnichannel
+      body: A DAG-based workflow engine, customer-care campaigns, and marketplace integrations.
+      tech: Zalo OA/ZNS · SMS · Email · TikTok Shop · Shopee
+    - slug: /leadership
+      title: Leading product & team
+      body: Product planning, writing specs, and coordinating a project team across PO, frontend and full-stack.
+      tech: Product planning · Specs · Code review
+  products_title: Products I'm building
+  products:
+    - name: Redsun BOS
+      tag: ERP
+      body: A business operating system — operations, CRM, customers and loyalty in one place.
+      url: https://redsun.vn
+      url_label: redsun.vn
+    - name: SIPOS
+      tag: SaaS · POS
+      body: Sales management for every industry — F&B, retail and services.
+      url: https://sipos.vn
+      url_label: sipos.vn
+    - name: Webino
+      tag: AI builder
+      body: AI-generated websites with a theme library for businesses.
+
+thinking:
+  label: 03 — How I think
+  title: How I make decisions.
+  items:
+    - title: AI proposes, people confirm.
+      body: Agents can draft orders, build reports and suggest next steps — but anything that touches real data goes through a preview and a human confirmation.
+    - title: Conversation over screens.
+      body: Business users shouldn't have to memorise ten screens. They say what they need; the system finds the right operation.
+    - title: Clean data first, AI second.
+      body: Cleaning and standardising data is the foundation. Without it, any model just gives wrong answers faster.
+    - title: Architecture sized to reality.
+      body: MVP first, scale later. Running cost is a design constraint, not an afterthought.
+    - title: Don't rebuild what already exists.
+      body: Orchestrate existing services, integrate good open source. Save the team's energy for what only we can build.
+
+contact:
+  label: 04 — Contact
+  title: Message me directly.
+  body: About ERP, POS, AI agents for business — or just to talk shop. The person reading and replying is me, not a chatbot.
+  signoff: Thanks for stopping by. — Nam
+
+footer:
+  note: written by a human, built by Cloudflare Pages
+  edit: Edit this page on GitHub

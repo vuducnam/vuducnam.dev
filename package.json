@@ -1,0 +1,16 @@
+{
+  "name": "vuducnam.dev",
+  "private": true,
+  "type": "module",
+  "description": "Trang cá nhân của Vũ Đức Nam — static site, nội dung trong content/*.yml",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && npx --yes serve dist"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "yaml": "^2.5.1"
+  }
+}
