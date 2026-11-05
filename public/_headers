@@ -7,5 +7,11 @@
 /styles.*.css
   Cache-Control: public, max-age=31536000, immutable
 
+/story.*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/three.*.js
+  Cache-Control: public, max-age=31536000, immutable
+
 /favicon.svg
   Cache-Control: public, max-age=86400

@@ -1,130 +1,76 @@
-# Nội dung tiếng Việt — trang https://vuducnam.dev/
+# Nội dung tiếng Việt — https://vuducnam.dev/
 # Sửa file này, commit lên main, Cloudflare Pages tự build lại.
+# Trang gồm phần mở đầu + 6 chương; mỗi chương gắn với một cảnh 3D theo thứ tự, nên giữ nguyên số chương.
 
 lang: vi
 locale: vi_VN
 path: /
 
 meta:
-  title: Vũ Đức Nam — CTO & Trưởng phòng dự án, Redsun Ecosys
-  description: Kỹ sư phần mềm 10 năm, CTO tại Redsun Ecosys. Xây ERP, POS và công cụ AI cho doanh nghiệp Việt.
-  job_title: CTO & Trưởng phòng dự án
+  title: Vũ Đức Nam — Kỹ sư phần mềm, CTO
+  description: 10 năm viết code. Giờ tôi tổ chức cách người và AI làm việc cùng nhau.
+  job_title: CTO
 
-nav:
-  about: Tôi là ai
-  capabilities: Làm được gì
-  thinking: Tư duy
-  contact: Liên hệ
-  menu: Mở menu
-  language: Ngôn ngữ
+ui:
   skip: Bỏ qua, tới nội dung
+  chapters: Các chương
+  language: Ngôn ngữ
+  chapter: Chương
+  scroll: Cuộn để đọc
+  copy: Sao chép
+  copied: Đã chép
+  copy_fallback: Đã chọn, nhấn Ctrl+C
+  home: Về đầu trang
 
 hero:
-  answer: human — không phải bot
+  name_short: Mở đầu
+  answer: human, không phải bot
   name: Vũ Đức Nam
-  role_prefix: CTO & Trưởng phòng dự án tại
-  company: Redsun Ecosys
-  lead: Tôi là Nam — kỹ sư phần mềm 10 năm, đang xây ERP, POS và công cụ AI cho doanh nghiệp Việt. AI là công cụ tôi dùng mỗi ngày. Còn quyết định, trách nhiệm và lời hứa với khách hàng thì vẫn là của con người.
+  role: Kỹ sư phần mềm
+  role_accent: CTO
+  lead: 10 năm viết code. Giờ tôi tổ chức cách người và AI làm việc cùng nhau.
   signature: — Nam
-  cta_primary: Nhắn cho tôi
-  cta_secondary: Tôi làm được gì
-  location: Thủ Đức, TP. Hồ Chí Minh · UTC+7
 
-fire:
-  label: 火 · MỆNH HỎA
-  status: "trạng thái: đang cháy"
-  fuel_label: nhiên liệu
-  fuel: [ERP, POS, AI agent, Kafka, CRM, DAG engine, đội ngũ]
-  stats:
-    - value: 2 vai
-      label: CTO và trưởng phòng dự án, cùng lúc
-    - value: 3 sản phẩm
-      label: BOS, SIPOS, Webino chạy song song
-    - value: 63 use case
-      label: AI-first, 10 domain, trong một bản spec
-  quote_strong: Lửa không hỏi khi nào được nghỉ.
-  quote_rest: Nó chỉ hỏi còn gì để cháy.
+chapters:
+  - name: Tia lửa
+    title: Bắt đầu từ một dòng code.
+    body: Nó chạy. Từ đó tôi không dừng lại.
 
-about:
-  label: 01 — Tôi là ai
-  title: Một người làm nghề.
-  body: Ở Redsun, tôi vẽ kiến trúc, lập kế hoạch sản phẩm, và vẫn ngồi cùng dev gỡ từng vấn đề.
-  side_title: Ngoài giờ làm
-  side:
-    - Làm bố, kiêm dev cho con — tự viết app luyện Toán lớp 5 và một AI gia sư kiểu Socratic, hỏi để con tự nghĩ, không đưa sẵn đáp án.
-    - Viết công cụ nhỏ cho việc thật, như một web app tra cứu văn bản hành chính — chính xác đến từng câu chữ.
-  profile_comment: "# con người, không phải bot"
-  profile_edit: Sửa trên GitHub
-  profile:
-    element: hỏa
-    stack:
-      - NestJS, Go, Rust
-      - PostgreSQL, Redis
-      - Kafka, BullMQ
-      - Mobile app
-      - Claude API, Claude Code, Antigravity
-    focus:
-      - AI agent cho ERP
-      - Kiến trúc event-driven
-      - Sản phẩm chuẩn enterprise
+  - name: Ngọn lửa
+    title: Mười năm. Chưa tắt.
+    body: Từ viết từng hàm đến thiết kế cả hệ thống. Bài toán càng khó, tôi càng muốn làm.
+    chips: [NestJS, Go, Rust, PostgreSQL, Kafka, Mobile]
 
-capabilities:
-  label: 02 — Tôi làm được gì
-  title: Từ bản vẽ kiến trúc đến sản phẩm chạy thật.
-  items:
-    - slug: /kiến-trúc
-      title: Kiến trúc hệ thống lớn
-      body: Microservice, event-driven, database-per-service cho một nền tảng ERP đa ngành, đa thương hiệu.
-      tech: NestJS · Go · Rust · Mobile · PostgreSQL · Kafka · BullMQ · Redis
-    - slug: /ai
-      title: Đưa AI vào sản phẩm thật
-      body: AI Gateway gọi nghiệp vụ bằng function calling, agent thay giao diện ERP, AI tóm tắt và gợi ý bước tiếp theo trong CRM.
-      tech: Claude API · MCP · pgvector
-    - slug: /tự-động-hóa
-      title: Tự động hóa & đa kênh
-      body: Workflow engine dạng DAG, chiến dịch chăm sóc khách hàng, kết nối sàn thương mại điện tử.
-      tech: Zalo OA/ZNS · SMS · Email · TikTok Shop · Shopee
-    - slug: /dẫn-dắt
-      title: Dẫn dắt sản phẩm & đội ngũ
-      body: Lập kế hoạch sản phẩm, viết spec, điều phối đội dự án từ PO, frontend đến full-stack.
-      tech: Product planning · Spec · Code review
-  products_title: Sản phẩm tôi đang xây
-  products:
-    - name: Redsun BOS
-      tag: ERP
-      body: Hệ điều hành doanh nghiệp — vận hành, CRM, khách hàng và loyalty trong một hệ thống.
-      url: https://redsun.vn
-      url_label: redsun.vn
-    - name: SIPOS
-      tag: SaaS · POS
-      body: Quản lý bán hàng cho mọi ngành — F&B, bán lẻ, dịch vụ.
-      url: https://sipos.vn
-      url_label: sipos.vn
-    - name: Webino
-      tag: AI builder
-      body: Tạo website bằng AI, kèm kho theme cho doanh nghiệp.
+  - name: Lò rèn
+    title: Tôi không làm demo. Tôi làm thứ chạy thật.
+    body: Từ bản vẽ đến production, rồi giữ cho nó chạy.
 
-thinking:
-  label: 03 — Tư duy
-  title: Cách tôi ra quyết định.
-  items:
-    - title: AI đề xuất, con người xác nhận.
-      body: Agent có thể soạn đơn, tạo báo cáo, gợi ý bước tiếp theo — nhưng hành động nào chạm vào dữ liệu thật đều đi qua bước xem trước và xác nhận.
-    - title: Hội thoại thay cho màn hình.
-      body: Người dùng doanh nghiệp không nên phải học thuộc mười màn hình. Họ nói điều cần làm, hệ thống tìm đúng nghiệp vụ.
-    - title: Dữ liệu sạch trước, AI sau.
-      body: Làm sạch và chuẩn hóa dữ liệu là nền móng. Không có nó, mô hình nào cũng chỉ trả lời sai nhanh hơn.
-    - title: Kiến trúc vừa với quy mô thật.
-      body: MVP trước, mở rộng sau. Chi phí vận hành là một ràng buộc thiết kế, không phải chuyện tính sau.
-    - title: Không xây lại thứ đã có.
-      body: Dịch vụ sẵn có thì điều phối, mã nguồn mở tốt thì tích hợp. Sức của đội dành cho phần chỉ mình làm được.
+  - name: Ngọn đuốc
+    title: Một mình thì nhanh. Có tổ chức mới đi xa.
+    body: Giờ tôi không gõ từng dòng nữa. Tôi thiết kế cách việc chạy.
+    roles:
+      - who: AI
+        what: làm phần lặp lại
+      - who: Đội
+        what: kiểm tra và hoàn thiện
+      - who: Người chịu trách nhiệm
+        what: chốt
+    aside: Ở nhà, tôi viết app học toán cho con.
 
-contact:
-  label: 04 — Liên hệ
-  title: Nhắn trực tiếp cho tôi.
-  body: Về ERP, POS, AI agent cho doanh nghiệp — hay chỉ để trao đổi nghề. Người đọc và trả lời là tôi, không phải chatbot.
-  signoff: Cảm ơn bạn đã ghé. — Nam
+  - name: Cách tổ chức
+    title: Năm điều tôi giữ khi tổ chức.
+    principles:
+      - AI đề xuất. Con người quyết định.
+      - Việc lặp lại giao cho AI. Việc cần phán đoán giữ cho người.
+      - Quy trình rõ trước, công cụ sau.
+      - MVP trước, mở rộng sau.
+      - Không xây lại thứ đã có.
+
+  - name: Còn gì để cháy?
+    title: Lửa không hỏi khi nào được nghỉ. Nó chỉ hỏi còn gì để cháy.
+    body: Có bài toán khó? Viết cho tôi. Người trả lời là tôi.
+    contact: true
 
 footer:
-  note: viết bởi người, build bởi Cloudflare Pages
-  edit: Sửa trang này trên GitHub
+  note: viết bởi người, vẽ bằng three.js
+  edit: Sửa trên GitHub

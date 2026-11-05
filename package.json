@@ -2,7 +2,7 @@
   "name": "vuducnam.dev",
   "private": true,
   "type": "module",
-  "description": "Trang cá nhân của Vũ Đức Nam — static site, nội dung trong content/*.yml",
+  "description": "Trang cá nhân của Vũ Đức Nam — static site dạng câu chuyện, cảnh 3D bằng three.js, nội dung trong content/*.yml",
   "scripts": {
     "build": "node build.mjs",
     "preview": "node build.mjs && npx --yes serve dist"
@@ -11,6 +11,7 @@
     "node": ">=20"
   },
   "dependencies": {
+    "three": "0.128.0",
     "yaml": "^2.5.1"
   }
 }

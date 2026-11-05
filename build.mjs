@@ -3,16 +3,31 @@
 //   dist/en/index.html   (en)
 import { readFile, writeFile, mkdir, rm, cp } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
 import { parse } from 'yaml';
 import { renderPage, render404 } from './src/render.mjs';
 
 const OUT = 'dist';
+const SCENES = 6; // số chương có cảnh 3D tương ứng trong src/story.js
+const require = createRequire(import.meta.url);
 const load = async (p) => parse(await readFile(p, 'utf8'));
 
 function check(c, file) {
-  const required = ['lang', 'path', 'meta', 'nav', 'hero', 'fire', 'about', 'capabilities', 'thinking', 'contact', 'footer'];
+  const required = ['lang', 'path', 'meta', 'ui', 'hero', 'chapters', 'footer'];
   const missing = required.filter((k) => c[k] == null);
   if (missing.length) throw new Error(`${file}: thiếu khóa ${missing.join(', ')}`);
+  if (c.chapters.length !== SCENES) throw new Error(`${file}: cần đúng ${SCENES} chương (đang có ${c.chapters.length})`);
+  c.chapters.forEach((ch, i) => {
+    if (!ch.name || !ch.title) throw new Error(`${file}: chương ${i + 1} thiếu name hoặc title`);
+  });
+}
+
+// Ghi file với tên có hash nội dung để cache lâu dài.
+async function emit(name, ext, content) {
+  const hash = createHash('sha256').update(content).digest('hex').slice(0, 10);
+  const href = `/${name}.${hash}.${ext}`;
+  await writeFile(`${OUT}${href}`, content);
+  return href;
 }
 
 const site = await load('content/site.yml');
@@ -25,14 +40,15 @@ await rm(OUT, { recursive: true, force: true });
 await mkdir(`${OUT}/en`, { recursive: true });
 await cp('public', OUT, { recursive: true });
 
-const css = await readFile('src/styles.css', 'utf8');
-const hash = createHash('sha256').update(css).digest('hex').slice(0, 10);
-const cssHref = `/styles.${hash}.css`;
-await writeFile(`${OUT}${cssHref}`, css);
+const assets = {
+  css: await emit('styles', 'css', await readFile('src/styles.css')),
+  story: await emit('story', 'js', await readFile('src/story.js')),
+  three: await emit('three.r128', 'js', await readFile(require.resolve('three/build/three.min.js'))),
+};
 
-await writeFile(`${OUT}/index.html`, renderPage({ c: vi, other: en, site, cssHref }));
-await writeFile(`${OUT}/en/index.html`, renderPage({ c: en, other: vi, site, cssHref }));
-await writeFile(`${OUT}/404.html`, render404({ vi, en, cssHref }));
+await writeFile(`${OUT}/index.html`, renderPage({ c: vi, other: en, site, assets }));
+await writeFile(`${OUT}/en/index.html`, renderPage({ c: en, other: vi, site, assets }));
+await writeFile(`${OUT}/404.html`, render404({ vi, en, assets }));
 
 const today = new Date().toISOString().slice(0, 10);
 const alt = `
@@ -48,4 +64,4 @@ await writeFile(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>
 `);
 await writeFile(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
 
-console.log(`Built ${OUT}/ — vi: ${vi.path}, en: ${en.path}, css: ${cssHref}`);
+console.log(`Built ${OUT}/ — vi: ${vi.path}, en: ${en.path}`, assets);
