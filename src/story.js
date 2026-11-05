@@ -34,8 +34,10 @@
   /* ---------- Scroll → chapter progress ---------- */
   var centers = [];
   function measure() { centers = sections.map(function (s) { return s.offsetTop + s.offsetHeight / 2; }); }
+  // Desktop đọc ở giữa màn hình; mobile đọc ở nửa dưới (nửa trên là cảnh 3D).
+  function isWide() { return window.innerWidth > 860; }
   function scrollProgress() {
-    var mid = window.scrollY + window.innerHeight / 2;
+    var mid = window.scrollY + window.innerHeight * (isWide() ? 0.5 : 0.73);
     if (mid <= centers[0]) return 0;
     for (var k = 0; k < LAST; k++) {
       if (mid < centers[k + 1]) return k + (mid - centers[k]) / (centers[k + 1] - centers[k]);
@@ -245,16 +247,40 @@
   var lmat = new THREE.LineBasicMaterial({ color: 0xFF7A33, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
   group.add(new THREE.LineSegments(lgeo, lmat));
 
-  var wide = true;
+  // Khung bao của từng cảnh trong hệ tọa độ thế giới: [minX, maxX, minY, maxY]. null = phủ toàn màn hình.
+  var BOX = [
+    null,                       // 0 đốm than
+    [-1.2, 1.2, -0.35, 2.25],   // 1 tia lửa
+    [-0.95, 0.95, -1.45, 1.4],  // 2 ngọn lửa
+    [-2.45, 2.45, -1.45, 0.95], // 3 lò rèn
+    [-3.25, 3.25, -2.0, 2.45],  // 4 ngọn đuốc + mạng nút
+    [-2.4, 2.4, -1.0, 0.4],     // 5 năm ngọn lửa
+    [-1.15, 1.15, -1.95, 1.55]  // 6 ngọn lửa lớn
+  ];
+  var canvas = renderer.domElement;
+  var wide = true, halfW = 1, halfH = 1;
+  var FIT = [];
   function resize() {
-    var w = window.innerWidth, h = window.innerHeight;
+    var w = canvas.clientWidth || window.innerWidth, h = canvas.clientHeight || window.innerHeight;
     var dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 1.75);
     renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    wide = w > 860;
-    mat.uniforms.uScale.value = dpr * h / 900 * (small ? 52 : 44);
+    wide = isWide();
+    halfH = Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
+    halfW = halfH * camera.aspect;
+    mat.uniforms.uScale.value = dpr * Math.max(h, 420) / 900 * (wide ? 44 : 56);
+    // Vùng dành cho cảnh, theo tỉ lệ khung canvas (x trái→phải, y trên→dưới).
+    var reg = wide ? [0.47, 0.93, 0.12, 0.9] : [0.05, 0.95, 0.17, 0.97];
+    var rx0 = (reg[0] * 2 - 1) * halfW, rx1 = (reg[1] * 2 - 1) * halfW;
+    var ry1 = (1 - reg[2] * 2) * halfH, ry0 = (1 - reg[3] * 2) * halfH;
+    var maxS = wide ? 1.3 : 1.0;
+    FIT = BOX.map(function (b) {
+      if (!b) return { s: 1, x: wide ? 0 : 0, y: 0 };
+      var s = Math.min(maxS, (rx1 - rx0) / (b[1] - b[0]), (ry1 - ry0) / (b[3] - b[2]));
+      return { s: s, x: (rx0 + rx1) / 2 - s * (b[0] + b[1]) / 2, y: (ry0 + ry1) / 2 - s * (b[2] + b[3]) / 2 };
+    });
     measure();
   }
   resize();
@@ -267,7 +293,8 @@
 
   var A = { x: 0, y: 0, z: 0, h: 0, s: 0 };
   var p = scrollProgress(), t = 0, last = performance.now(), running = true;
-  var gx = wide ? 2 : 0, gy = wide ? 0 : 0.95, gs = wide ? 1 : 0.6;
+  var k0 = Math.min(LAST, Math.round(p));
+  var gx = FIT[k0].x, gy = FIT[k0].y, gs = FIT[k0].s;
 
   function frame(now) {
     if (!running) return;
@@ -301,8 +328,10 @@
 
     lmat.opacity = Math.max(0, 1 - Math.abs(p - 4)) * 0.28 * (0.8 + 0.2 * Math.sin(t * 2));
 
-    var tx = wide ? 2.0 : 0, ty = wide ? 0 : 0.95, ts = wide ? 1 : 0.6;
-    gx += (tx - gx) * 0.06; gy += (ty - gy) * 0.06; gs += (ts - gs) * 0.06;
+    var FA = FIT[k], FB = FIT[k + 1];
+    var tx = FA.x + (FB.x - FA.x) * f, ty = FA.y + (FB.y - FA.y) * f, ts = FA.s + (FB.s - FA.s) * f;
+    var ease = Math.min(1, dt * 6);
+    gx += (tx - gx) * ease; gy += (ty - gy) * ease; gs += (ts - gs) * ease;
     group.position.set(gx, gy, 0);
     group.scale.setScalar(gs);
     group.rotation.y = Math.sin(t * 0.12) * 0.18 + mouseX * 0.25;
