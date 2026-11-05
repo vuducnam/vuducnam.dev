@@ -44,6 +44,7 @@ chapters:
   - name: Lò rèn
     title: Tôi không làm demo. Tôi làm thứ chạy thật.
     body: Từ bản vẽ đến production, rồi giữ cho nó chạy.
+    cta: work
 
   - name: Ngọn đuốc
     title: Một mình thì nhanh. Có tổ chức mới đi xa.
@@ -74,3 +75,87 @@ chapters:
 footer:
   note: viết bởi người, vẽ bằng three.js
   edit: Sửa trên GitHub
+
+# Trang "Việc đã làm" — https://vuducnam.dev/viec-da-lam/
+# Các dự án đều theo thỏa thuận bảo mật: không ghi tên dự án, khách hàng hay số liệu nội bộ.
+work:
+  path: /viec-da-lam/
+  nav: Việc đã làm
+  back: Về câu chuyện
+  meta_title: Việc đã làm — Vũ Đức Nam
+  meta_description: Những việc tôi đã làm về kiến trúc hệ thống, AI, tự động hóa và CRM.
+  label: Hồ sơ
+  title: Việc đã làm.
+  lead: Các dự án đều theo thỏa thuận bảo mật, nên ở đây không có tên khách hàng hay số liệu nội bộ. Chỉ có những việc tôi đã làm.
+  groups:
+    - name: Kiến trúc & nền tảng
+      items:
+        - title: Nền tảng SaaS đa ngành theo microservice
+          detail: Mỗi service một database, dữ liệu tách theo cửa hàng, cấu hình riêng theo ngành.
+          tech: NestJS · PostgreSQL · Kafka · BullMQ · Redis
+        - title: Thiết kế lớp phân tích dữ liệu đa tenant
+          detail: Lớp báo cáo thay cho report service cũ; phân quyền đi qua API gateway trước khi tới tầng phân tích.
+          tech: Cube.js · PostgreSQL
+        - title: Hạ tầng và vận hành
+          detail: Triển khai, connection pooling và truy cập từ xa cho hệ thống nhiều service.
+          tech: DevOps
+    - name: AI & tự động hóa
+      items:
+        - title: AI Gateway
+          detail: Gọi nghiệp vụ bằng function calling; thao tác nào ghi vào dữ liệu thật cũng qua bước xem trước và xác nhận.
+          tech: Claude API · Function calling
+        - title: Nền tảng AI agent cho ERP
+          detail: Người dùng chat để nhập hàng, tạo đơn, xem báo cáo và nhận cảnh báo, thay cho thao tác qua từng màn hình.
+          tech: AI agent · MCP
+        - title: Engine workflow dạng DAG
+          detail: Kích hoạt theo sự kiện và theo lịch, gửi chiến dịch qua Zalo OA/ZNS, SMS và Email.
+          tech: DAG · BullMQ
+        - title: Chatbot bán hàng đa tenant
+          detail: Mỗi cửa hàng có chatbot riêng chạy trên website của mình.
+          tech: LLM · Multi-tenant
+        - title: Quy trình sản xuất video ngắn bằng AI
+          detail: Thiết lập quy trình làm reel cho đội marketing, AI làm phần lặp lại.
+          tech: Claude Code · AI agent
+    - name: CRM & đa kênh
+      items:
+        - title: CRM AI-native
+          detail: Hội thoại đa kênh Zalo OA và Facebook; AI tóm tắt và gợi ý bước tiếp theo; lead và khách hàng tách thành hai bounded context.
+          tech: pgvector · DDD
+        - title: Tích hợp sàn thương mại điện tử
+          detail: Kết nối TikTok Shop, Shopee và Facebook Catalog vào hệ thống bán hàng.
+          tech: API · Webhook
+    - name: Nghiệp vụ
+      items:
+        - title: Thiết kế hệ thống hoa hồng cho đại lý và đối tác
+          detail: Tính hoa hồng cho đại lý và đối tác bán lại.
+          tech: Thiết kế nghiệp vụ
+        - title: Thiết kế hệ thống quản lý đặt cọc
+          detail: Cho karaoke, billiards, F&B và mini-hotel.
+          tech: Thiết kế nghiệp vụ
+        - title: Cookie consent theo luật dữ liệu cá nhân Việt Nam
+          detail: Thu thập và lưu đồng ý của người dùng đúng quy định.
+          tech: Tuân thủ
+    - name: Desktop & công cụ
+      items:
+        - title: Print agent in hóa đơn
+          detail: Cầu nối giữa web và máy in qua WebSocket.
+          tech: Tauri · Rust · React
+        - title: Session replay tự host
+          detail: Tự triển khai hệ thống ghi lại phiên người dùng và tích hợp vào web app.
+          tech: OpenReplay · Next.js
+  open_title: Có thể xem code
+  open_lead: Những dự án cá nhân, mã nguồn công khai.
+  open:
+    - name: App luyện Toán lớp 5
+      detail: Game hóa với linh vật, chuỗi ngày học và trang theo dõi cho phụ huynh.
+      tech: Next.js · Prisma · PostgreSQL
+      url: https://github.com/vuducnam/web-app-hoc-toan
+    - name: AI gia sư Socratic
+      detail: Hỏi gợi mở để học sinh tự nghĩ, thay vì đưa sẵn đáp án.
+      tech: LLM · Agent
+      url: https://github.com/vuducnam/AI-Socratic-tutor-cho-h-c-sinh
+    - name: Tra cứu văn bản hành chính
+      detail: Tra cứu văn bản hướng dẫn, đòi hỏi chính xác đến từng câu chữ.
+      tech: HTML · JavaScript
+      url: https://github.com/vuducnam/tra-cuu-hd05-hd06
+  nda: Muốn biết chi tiết? Trao đổi trực tiếp, theo thỏa thuận bảo mật.

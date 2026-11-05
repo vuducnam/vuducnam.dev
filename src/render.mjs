@@ -9,7 +9,10 @@ export const esc = (s) =>
 
 const LOGO = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B2C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c.7 3.3 3.2 5 4.7 7.3A6.6 6.6 0 1 1 5.8 11.4c.9 1.3 2.1 1.9 3.2 2-.6-3.9.8-7.8 3-10.9z"/><path d="M12 21a3 3 0 0 1-3-3c0-1.8 1.6-2.9 3-5.2 1.4 2.3 3 3.4 3 5.2a3 3 0 0 1-3 3z"/></svg>';
 
-const FONTS = 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@700&display=swap';
+const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const EXTERNAL = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>';
+
+const FONTS ='https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@700&display=swap';
 
 function chapterHtml(ch, n, total, c, site) {
   const id = `c${n}`;
@@ -24,12 +27,15 @@ function chapterHtml(ch, n, total, c, site) {
   }
   if (ch.principles) parts.push(`<ol class="principles">${ch.principles.map((p) => `<li><b>${esc(p)}</b></li>`).join('')}</ol>`);
   if (ch.aside) parts.push(`<p class="aside">${esc(ch.aside)}</p>`);
+  if (ch.cta === 'work' && c.work) {
+    parts.push(`<div class="actions"><a class="btn btn-primary" href="${c.work.path}">${esc(c.work.nav)}${ARROW}</a></div>`);
+  }
   if (ch.contact) {
     parts.push(`<div class="email">
         <a href="mailto:${esc(site.email)}" id="email-text">${esc(site.email)}</a>
         <button class="btn btn-primary" type="button" id="copy-email" data-copy="${esc(site.email)}" data-done="${esc(c.ui.copied)}" data-fallback="${esc(c.ui.copy_fallback)}">${esc(c.ui.copy)}</button>
       </div>`);
-    parts.push(`<div class="actions"><a class="btn" href="${esc(site.github)}" rel="me noopener">GitHub</a></div>`);
+    parts.push(`<div class="actions">${c.work ? `<a class="btn" href="${c.work.path}">${esc(c.work.nav)}</a>` : ''}<a class="btn" href="${esc(site.github)}" rel="me noopener">GitHub</a></div>`);
     parts.push(`<p class="sig">${esc(c.hero.signature)}</p>`);
     parts.push(`<p class="foot">© ${new Date().getFullYear()} ${esc(c.hero.name)} · ${esc(c.footer.note)} · <a href="${site.repo}/edit/main/content/${c.lang}.yml">${esc(c.footer.edit)}</a></p>`);
   }
@@ -95,6 +101,7 @@ export function renderPage({ c, other, site, assets }) {
 <header class="hud">
   <a class="brand" href="#c0" aria-label="vuducnam.dev — ${esc(c.ui.home)}">${LOGO}<span>vuducnam<b>.dev</b></span></a>
   <div class="hud-end">
+    ${c.work ? `<a class="hud-link" href="${c.work.path}">${esc(c.work.nav)}</a>` : ''}
     <p class="chapter" aria-hidden="true"><strong id="hud-num">00/0${total}</strong><span id="hud-name">${esc(names[0])}</span></p>
     <div class="lang" role="group" aria-label="${esc(c.ui.language)}">${langLink('vi')}${langLink('en')}</div>
   </div>
@@ -121,6 +128,98 @@ export function renderPage({ c, other, site, assets }) {
 
 <script src="${assets.three}" defer></script>
 <script src="${assets.story}" defer></script>
+</body>
+</html>
+`;
+}
+
+// Trang "Việc đã làm": danh sách việc đã làm (ẩn danh) + dự án cá nhân có mã nguồn công khai.
+export function renderWork({ c, other, site, assets }) {
+  const w = c.work, ow = other.work;
+  const pageUrl = site.url + w.path;
+  const langLink = (code) => {
+    const target = code === c.lang ? w : ow;
+    const cur = code === c.lang ? ' aria-current="page"' : '';
+    return `<a href="${target.path}" hreflang="${code}" lang="${code}"${cur}>${code.toUpperCase()}</a>`;
+  };
+  const groups = w.groups.map((g, gi) => `
+    <section class="w-group" aria-labelledby="g${gi}">
+      <h2 id="g${gi}" class="w-group-name"><span>${String(gi + 1).padStart(2, '0')}</span>${esc(g.name)}</h2>
+      <ul class="w-items">
+        ${g.items.map((it) => `<li>
+          <h3>${esc(it.title)}</h3>
+          <p>${esc(it.detail)}</p>
+          <p class="w-tech">${esc(it.tech)}</p>
+        </li>`).join('\n        ')}
+      </ul>
+    </section>`).join('\n');
+  const open = w.open.map((o) => `<li>
+        <a class="w-repo" href="${esc(o.url)}" rel="noopener">
+          <span class="w-repo-name">${esc(o.name)}${EXTERNAL}</span>
+          <span class="w-repo-detail">${esc(o.detail)}</span>
+          <span class="w-tech">${esc(o.tech)}</span>
+          <span class="w-repo-url">${esc(o.url.replace('https://', ''))}</span>
+        </a>
+      </li>`).join('\n      ');
+
+  return `<!doctype html>
+<html lang="${c.lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(w.meta_title)}</title>
+<meta name="description" content="${esc(w.meta_description)}">
+<link rel="canonical" href="${pageUrl}">
+<link rel="alternate" hreflang="${c.lang}" href="${pageUrl}">
+<link rel="alternate" hreflang="${other.lang}" href="${site.url + ow.path}">
+<link rel="alternate" hreflang="x-default" href="${site.url}${c.lang === 'vi' ? w.path : ow.path}">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="${esc(w.meta_title)}">
+<meta property="og:description" content="${esc(w.meta_description)}">
+<meta property="og:url" content="${pageUrl}">
+<meta property="og:locale" content="${c.locale}">
+<meta name="theme-color" content="#110C0A">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="${FONTS}">
+<link rel="stylesheet" href="${assets.css}">
+</head>
+<body class="work-page">
+<a class="skip" href="#main">${esc(c.ui.skip)}</a>
+<header class="hud hud-solid">
+  <a class="brand" href="${c.path}" aria-label="vuducnam.dev">${LOGO}<span>vuducnam<b>.dev</b></span></a>
+  <div class="hud-end">
+    <a class="hud-link" href="${c.path}">${esc(w.back)}</a>
+    <div class="lang" role="group" aria-label="${esc(c.ui.language)}">${langLink('vi')}${langLink('en')}</div>
+  </div>
+</header>
+
+<main id="main" class="w-main">
+  <div class="w-intro">
+    <p class="label">${esc(w.label)}</p>
+    <h1>${esc(w.title)}</h1>
+    <p class="lead">${esc(w.lead)}</p>
+  </div>
+  ${groups}
+
+  <section class="w-group w-open" aria-labelledby="open-h">
+    <h2 id="open-h" class="w-group-name"><span>&lt;/&gt;</span>${esc(w.open_title)}</h2>
+    <p class="body">${esc(w.open_lead)}</p>
+    <ul class="w-repos">
+      ${open}
+    </ul>
+  </section>
+
+  <section class="w-nda">
+    <p>${esc(w.nda)}</p>
+    <div class="email">
+      <a href="mailto:${esc(site.email)}" id="email-text">${esc(site.email)}</a>
+    </div>
+    <p class="sig">${esc(c.hero.signature)}</p>
+    <p class="foot">© ${new Date().getFullYear()} ${esc(c.hero.name)} · ${esc(c.footer.note)} · <a href="${site.repo}/edit/main/content/${c.lang}.yml">${esc(c.footer.edit)}</a></p>
+  </section>
+</main>
 </body>
 </html>
 `;

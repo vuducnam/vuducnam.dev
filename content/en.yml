@@ -44,6 +44,7 @@ chapters:
   - name: Forge
     title: I don't build demos. I build things that run.
     body: From the drawing board to production, and then keeping it running.
+    cta: work
 
   - name: Torch
     title: Alone is fast. Organized goes far.
@@ -74,3 +75,87 @@ chapters:
 footer:
   note: written by a human, drawn with three.js
   edit: Edit on GitHub
+
+# "Work" page — https://vuducnam.dev/en/work/
+# All projects are under confidentiality agreements: no project names, clients or internal figures.
+work:
+  path: /en/work/
+  nav: Work
+  back: Back to the story
+  meta_title: Work — Vũ Đức Nam
+  meta_description: Things I have built in system architecture, AI, automation and CRM.
+  label: Record
+  title: What I've built.
+  lead: All projects are under confidentiality agreements, so there are no client names or internal figures here. Just the work I've done.
+  groups:
+    - name: Architecture & platform
+      items:
+        - title: Multi-industry SaaS platform on microservices
+          detail: One database per service, data partitioned by store, configuration per industry.
+          tech: NestJS · PostgreSQL · Kafka · BullMQ · Redis
+        - title: Designed a multi-tenant analytics layer
+          detail: A reporting layer replacing the legacy report service; permissions pass through the API gateway before reaching analytics.
+          tech: Cube.js · PostgreSQL
+        - title: Infrastructure and operations
+          detail: Deployment, connection pooling and remote access for a many-service system.
+          tech: DevOps
+    - name: AI & automation
+      items:
+        - title: AI Gateway
+          detail: Calls business operations through function calling; anything that writes to real data goes through a preview and a confirmation.
+          tech: Claude API · Function calling
+        - title: AI agent platform for ERP
+          detail: Users chat to import products, create orders, read reports and get alerts, instead of clicking through screens.
+          tech: AI agents · MCP
+        - title: DAG workflow engine
+          detail: Event and schedule triggers, campaigns sent over Zalo OA/ZNS, SMS and Email.
+          tech: DAG · BullMQ
+        - title: Multi-tenant sales chatbot
+          detail: Every store gets its own chatbot running on its own website.
+          tech: LLM · Multi-tenant
+        - title: AI short-video production workflow
+          detail: Set up a reel production workflow for the marketing team, with AI doing the repetitive part.
+          tech: Claude Code · AI agents
+    - name: CRM & omnichannel
+      items:
+        - title: AI-native CRM
+          detail: Omnichannel conversations over Zalo OA and Facebook; AI summaries and next-step suggestions; leads and customers as two bounded contexts.
+          tech: pgvector · DDD
+        - title: Marketplace integrations
+          detail: Connected TikTok Shop, Shopee and Facebook Catalog to the sales system.
+          tech: API · Webhooks
+    - name: Business domains
+      items:
+        - title: Designed a commission system for resellers and partners
+          detail: Commission calculation for resellers and partners.
+          tech: Domain design
+        - title: Designed a deposit management system
+          detail: For karaoke, billiards, F&B and mini-hotels.
+          tech: Domain design
+        - title: Cookie consent under Vietnam's personal data law
+          detail: Collects and stores user consent as the regulation requires.
+          tech: Compliance
+    - name: Desktop & tooling
+      items:
+        - title: Receipt print agent
+          detail: A bridge between the web app and printers over WebSocket.
+          tech: Tauri · Rust · React
+        - title: Self-hosted session replay
+          detail: Deployed a session replay system and integrated it into a web app.
+          tech: OpenReplay · Next.js
+  open_title: Code you can read
+  open_lead: Personal projects with public source code.
+  open:
+    - name: Grade 5 math practice app
+      detail: Gamified with a mascot, learning streaks and a parent dashboard.
+      tech: Next.js · Prisma · PostgreSQL
+      url: https://github.com/vuducnam/web-app-hoc-toan
+    - name: Socratic AI tutor
+      detail: Asks guiding questions so students think for themselves, instead of handing out answers.
+      tech: LLM · Agent
+      url: https://github.com/vuducnam/AI-Socratic-tutor-cho-h-c-sinh
+    - name: Administrative document lookup
+      detail: Lookup for official guidance documents, accurate down to the last word.
+      tech: HTML · JavaScript
+      url: https://github.com/vuducnam/tra-cuu-hd05-hd06
+  nda: Want the details? Let's talk directly, under a confidentiality agreement.
